@@ -90,12 +90,12 @@ class FJSP_GUI(QMainWindow):
         layout = QVBoxLayout()
 
         # Gantt Chart
-        self.gantt_figure, self.gantt_ax = plt.subplots(figsize=(20, 4))
+        self.gantt_figure, self.gantt_ax = plt.subplots(figsize=(20, 5.5))
         self.gantt_canvas = FigureCanvas(self.gantt_figure)
         layout.addWidget(self.gantt_canvas)
 
         # Convergence Plot
-        self.convergence_figure, self.convergence_ax = plt.subplots(figsize=(70, 4))
+        self.convergence_figure, self.convergence_ax = plt.subplots(figsize=(20, 4.5))
         self.convergence_canvas = FigureCanvas(self.convergence_figure)
         layout.addWidget(self.convergence_canvas)
 
