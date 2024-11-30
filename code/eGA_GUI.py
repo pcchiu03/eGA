@@ -90,7 +90,7 @@ class FJSP_GUI(QMainWindow):
         layout = QVBoxLayout()
 
         # Gantt Chart
-        self.gantt_figure, self.gantt_ax = plt.subplots(figsize=(20, 6))
+        self.gantt_figure, self.gantt_ax = plt.subplots(figsize=(15, 6))
         self.gantt_canvas = FigureCanvas(self.gantt_figure)
         layout.addWidget(self.gantt_canvas)
 

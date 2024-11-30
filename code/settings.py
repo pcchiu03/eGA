@@ -20,6 +20,7 @@ def plot_schedule(dataset, schedule: List[Tuple[int, int, int, int, int]], makes
     else:
         fig = ax.get_figure()
 
+    original_figsize = fig.get_size_inches()
     ax.clear()
     colors = plt.cm.get_cmap("Set3")(
         np.linspace(0, 1, max(op[0] for op in schedule) + 1)
@@ -60,8 +61,12 @@ def plot_schedule(dataset, schedule: List[Tuple[int, int, int, int, int]], makes
     if save_fig:
         os.makedirs('fig/gantt_chart', exist_ok=True)
         fig_path = os.path.join('fig/gantt_chart', f'{dataset_name}_result.png')
-        fig.savefig(fig_path, dpi=200, bbox_inches='tight')
-        print(f"\nGantt chart saved to {fig_path}")
+        try:
+            fig.set_size_inches(20, 10)
+            fig.savefig(fig_path, dpi=200, bbox_inches='tight')
+            print(f"\nGantt chart saved to {fig_path}")
+        finally:
+            fig.set_size_inches(original_figsize)
     
     # plt.show()
     return ax
@@ -75,6 +80,7 @@ def plot_convergence(dataset, makespans: List[int], ax=None, save_fig=False):
     else:
         fig = ax.get_figure()
     
+    original_figsize = fig.get_size_inches()
     ax.clear()
     ax.plot(range(1, len(makespans) + 1), makespans, linestyle="--", label="eGA")
     ax.set_title(f"The convergence plot of {dataset_name}")
@@ -86,8 +92,12 @@ def plot_convergence(dataset, makespans: List[int], ax=None, save_fig=False):
     if save_fig:
         os.makedirs('fig/convergence_plot', exist_ok=True)
         fig_path = os.path.join('fig/convergence_plot', f'{dataset_name}_convergence.png')
-        fig.savefig(fig_path, dpi=200, bbox_inches='tight')
-        print(f"\nConvergence plot saved to {fig_path}")
+        try:
+            fig.set_size_inches(8, 4)
+            fig.savefig(fig_path, dpi=200, bbox_inches='tight')
+            print(f"\nConvergence plot saved to {fig_path}")
+        finally:
+            fig.set_size_inches(original_figsize)
     
     # plt.show()
     return ax
