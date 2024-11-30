@@ -1,10 +1,9 @@
 # GA
 
 ## Contents
-This project aims to apply a genetic algorithm (GA) to solve the flexible job-shop scheduling problem (FJSP)
-and replicates the algorithm based on relevant literature. 
-Additionally, a graphical user interface (GUI) is developed to allow users to easily input and adjust test parameters, 
-select test datasets, and display the scheduling results along with the convergence behavior of the algorithm.
+This project aims to apply genetic algorithm (GA) to solve the flexible job-shop scheduling problem (FJSP) and replicates the algorithm based on relevant literature.
+
+Additionally, a [graphical user interface (GUI)](https://github.com/pcchiu03/eGA/blob/main/code/eGA_GUI.py) is developed to allow users to easily input and adjust test parameters, select test datasets, and display the scheduling results along with the convergence plot of the algorithm.
 
 
 ## Files
