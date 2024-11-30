@@ -90,12 +90,12 @@ class FJSP_GUI(QMainWindow):
         layout = QVBoxLayout()
 
         # Gantt Chart
-        self.gantt_figure, self.gantt_ax = plt.subplots(figsize=(20, 5.5))
+        self.gantt_figure, self.gantt_ax = plt.subplots(figsize=(20, 6))
         self.gantt_canvas = FigureCanvas(self.gantt_figure)
         layout.addWidget(self.gantt_canvas)
 
         # Convergence Plot
-        self.convergence_figure, self.convergence_ax = plt.subplots(figsize=(20, 4.5))
+        self.convergence_figure, self.convergence_ax = plt.subplots(figsize=(6, 5))
         self.convergence_canvas = FigureCanvas(self.convergence_figure)
         layout.addWidget(self.convergence_canvas)
 
@@ -108,10 +108,24 @@ class FJSP_GUI(QMainWindow):
 
     def run_ga(self):
         try:
+            # Disable the run button to prevent repeated clicks
+            self.run_button.setEnabled(False)
+
+            # Display the running status
+            self.run_button.setText("Running...")
+            
+            # Update the GUI to indicate preparation is in progress
+            self.console_output.setPlainText("Preparing simulation...")
+            QApplication.processEvents()
+
             # Clear previous outputs
             self.console_output.clear()
             self.gantt_ax.clear()
             self.convergence_ax.clear()
+
+            # Display that parameters are being prepared
+            self.console_output.append("Loading dataset...")
+            QApplication.processEvents()
 
             # Get selected parameters
             dataset = os.path.join(self.dataset_dir, self.dataset_combo.currentText())
@@ -119,9 +133,13 @@ class FJSP_GUI(QMainWindow):
             generations = int(self.generations_input.text())
 
             # Load FJSP problem
+            self.console_output.append("Initializing Genetic Algorithm...")
+            QApplication.processEvents()
             fjsp = read_excel(dataset)
 
             # Run GA
+            self.console_output.append("Running Genetic Algorithm...")
+            QApplication.processEvents()
             start_time = time.time()
             ga = GA(fjsp, pop_size=pop_size, generations=generations)
             best_schedule, makespan = ga.run()
@@ -138,15 +156,20 @@ class FJSP_GUI(QMainWindow):
             self.console_output.setPlainText(result_text)
 
             # Plot Gantt Chart
-            plot_schedule(dataset, best_schedule, makespan, self.gantt_ax)
+            plot_schedule(dataset, best_schedule, makespan, self.gantt_ax, save_fig=True)
             self.gantt_canvas.draw()
 
             # Plot Convergence
-            plot_convergence(dataset, ga.best_makespans, self.convergence_ax)
+            plot_convergence(dataset, ga.best_makespans, self.convergence_ax, save_fig=True)
             self.convergence_canvas.draw()
 
         except Exception as e:
             self.console_output.setPlainText(f"Error: {str(e)}")
+
+        finally:
+            # Restore the button's status
+            self.run_button.setEnabled(True)
+            self.run_button.setText("Run Genetic Algorithm")
 
 def main():
     app = QApplication(sys.argv)
@@ -156,3 +179,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
