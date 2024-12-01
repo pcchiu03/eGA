@@ -259,9 +259,9 @@ if __name__ == "__main__":
     #     print(
     #         f"Job {op[0]+1} Operation {op[1]+1} on Machine {op[2]+1} from {op[3]} to {op[4]}"
     #     )
-    # print(f"Execution time: {execution_time: .2f} sec")
+    print(f"Execution time: {execution_time: .2f} sec")
 
     # Visualize results
-    # plot_schedule(dataset, best_schedule, makespan, save_fig=True)
-    # plot_convergence(dataset, ga.best_makespans, save_fig=True)
+    # plot_schedule(dataset, best_schedule, makespan, save_fig=False)
+    # plot_convergence(dataset, ga.best_makespans, save_fig=False)
 

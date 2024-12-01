@@ -16,7 +16,7 @@ def plot_schedule(dataset, schedule: List[Tuple[int, int, int, int, int]], makes
     dataset_name = os.path.splitext(os.path.basename(dataset))[0]
 
     if ax is None:
-        fig, ax = plt.subplots(figsize=(10, 5))
+        fig, ax = plt.subplots(figsize=(15, 6))
     else:
         fig = ax.get_figure()
 
